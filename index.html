@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAAM — Lujo Discreto, Detalles que Hablan</title>
+  <meta name="description" content="Bolsas de piel artesanal. Hecho en México. Elegancia sin esfuerzo.">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/preloader.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/collection-menu.css">
+  <link rel="stylesheet" href="css/collection-grid.css">
+  <link rel="stylesheet" href="css/product.css">
+
+  <!-- GSAP CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<!-- ==============================
+     PRELOADER
+     ============================== -->
+<div id="preloader">
+  <!-- Marco de bordes -->
+  <div class="preloader__border preloader__border--top"></div>
+  <div class="preloader__border preloader__border--bottom"></div>
+  <div class="preloader__border preloader__border--left"></div>
+  <div class="preloader__border preloader__border--right"></div>
+
+  <!-- Logo / wordmark central -->
+  <!-- REEMPLAZAR img src con el logo real cuando esté disponible -->
+  <!-- <img class="preloader__logo" src="images/logo.png" alt="AURÉ"> -->
+  <span class="preloader__wordmark">PAAM</span>
+
+  <!-- Contador -->
+  <div class="preloader__counter">00%</div>
+
+  <!-- Tagline sutil -->
+  <div class="preloader__tagline">Lujo Discreto · Hecho en México</div>
+</div>
+
+
+<!-- ==============================
+     SCROLL WRAPPER (pin container)
+     ============================== -->
+<div id="scroll-pin">
+<div id="horizontal-strip">
+
+  <!-- ==============================
+       HERO
+       ============================== -->
+  <div id="hero-section">
+    <!-- Capa 1: Fondo fotográfico -->
+    <div class="hero__bg"></div>
+    <!-- Capa 1b: Overlay de oscurecimiento en scroll (nunca en .hero__bg para no romper mix-blend-mode) -->
+    <div class="hero__overlay"></div>
+
+    <!-- Nav -->
+    <nav class="hero__nav">
+      <ul class="hero__nav-links">
+        <li><a href="#">Colección</a></li>
+        <li><a href="#">Filosofía</a></li>
+        <li><a href="#">Contacto ↗</a></li>
+      </ul>
+    </nav>
+
+    <!-- Capa 2: Wordmark gigante -->
+    <h1 class="hero__title">PAAM</h1>
+
+    <!-- Capa 3: Modelo recortado — va SOBRE el título para el efecto de profundidad -->
+    <img class="hero__fg" src="images/hero-fg.png" alt="">
+
+    <!-- Tagline -->
+    <p class="hero__tagline">Elegancia sin esfuerzo</p>
+
+    <!-- Scroll indicator -->
+    <div class="hero__scroll-hint">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </div><!-- /hero-section -->
+
+
+  <!-- ==============================
+       COLLECTION — 6 tarjetas editoriales
+       ============================== -->
+  <div id="collection-menu">
+
+    <div class="col-card" data-collection="hobo">
+      <img class="col-card__img" src="images/col-01-hobo.png" alt="PAAM HOBO" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">01</span>
+        <h2 class="col-card__name">HOBO</h2>
+        <span class="col-card__sub">Piel trenzada · 6 colores</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+    <div class="col-card" data-collection="cloud">
+      <img class="col-card__img" src="images/col-02-cloud.png" alt="PAAM CLOUD" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">02</span>
+        <h2 class="col-card__name">CLOUD</h2>
+        <span class="col-card__sub">Forma suave · 6 tonos</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+    <div class="col-card col-card--hint" data-collection="mini">
+      <img class="col-card__img" src="images/col-03-mini.png" alt="PAAM MINI" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">03</span>
+        <h2 class="col-card__name">MINI</h2>
+        <span class="col-card__sub">Formato pequeño · 6 tonos</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+    <div class="col-card" data-collection="classic">
+      <img class="col-card__img" src="images/col-04-classic.png" alt="PAAM CLASSIC" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">04</span>
+        <h2 class="col-card__name">CLASSIC</h2>
+        <span class="col-card__sub">Con cadena · 6 tonos</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+    <div class="col-card" data-collection="tote">
+      <img class="col-card__img" src="images/col-05-tote.png" alt="PAAM TOTE" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">05</span>
+        <h2 class="col-card__name">TOTE</h2>
+        <span class="col-card__sub">Gran formato · 6 tonos</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+    <div class="col-card" data-collection="bucket">
+      <img class="col-card__img" src="images/col-06-bucket.png" alt="PAAM BUCKET" loading="lazy">
+      <div class="col-card__overlay"></div>
+      <div class="col-card__info">
+        <span class="col-card__num">06</span>
+        <h2 class="col-card__name">BUCKET</h2>
+        <span class="col-card__sub">Forma bucket · 6 tonos</span>
+        <span class="col-card__cta">Ver colección →</span>
+      </div>
+      <span class="col-card__corner">PAAM</span>
+    </div>
+
+  </div><!-- /collection-menu -->
+
+</div><!-- /horizontal-strip -->
+</div><!-- /scroll-pin -->
+
+
+<!-- ==============================
+     COLLECTION GRID VIEW
+     ============================== -->
+<div id="collection-view">
+  <header class="collection-view__header">
+    <button class="collection-view__back" id="back-from-grid">Colección</button>
+    <span class="collection-view__count" id="collection-view-count">06 piezas</span>
+  </header>
+
+  <!-- Hero editorial de la colección -->
+  <div class="collection-view__hero">
+    <h2 class="collection-view__display-title" id="collection-view-display-title">HOBO</h2>
+    <span class="collection-view__subtitle" id="collection-view-title">PAAM HOBO</span>
+  </div>
+
+  <div class="collection-view__grid" id="collection-view-grid">
+    <!-- Generado por navigation.js -->
+  </div>
+</div>
+
+
+<!-- ==============================
+     PRODUCT DETAIL PAGE (PDP)
+     ============================== -->
+<div id="product-view">
+  <div class="product-view__inner">
+
+    <!-- Panel galería -->
+    <div class="product-view__gallery">
+      <img class="product-view__img" id="pdp-img" src="" alt="">
+    </div>
+
+    <!-- Panel info -->
+    <div class="product-view__info">
+      <button class="product-view__back" id="back-from-pdp">Colección</button>
+
+      <p class="product-view__category" id="pdp-category">PAAM HOBO</p>
+      <h2 class="product-view__name" id="pdp-name">Hobo Tabaco</h2>
+      <p class="product-view__price" id="pdp-price">$5,500 MXN</p>
+
+      <div class="product-view__divider"></div>
+
+      <p class="product-view__desc">
+        Piel trenzada artesanalmente con la técnica Intrecciato. Cada pieza es única — el tejido se realiza a mano, tira a tira, sin costuras visibles. Capacidad para uso diario. Hecho en México.
+      </p>
+
+      <p class="product-view__swatches-label">Color</p>
+      <div class="product-view__swatches" id="pdp-swatches">
+        <!-- Generado por navigation.js -->
+      </div>
+
+      <button class="product-view__cta">Agregar al carrito</button>
+      <p class="product-view__guarantee">Envío gratis · Devolución 30 días</p>
+
+      <p class="product-view__origin">PAAM · Hecho en México · Artesanía excepcional</p>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- JS -->
+<script src="js/preloader.js"></script>
+<script src="js/hero-scroll.js"></script>
+<script src="js/collection-reveal.js"></script>
+<script src="js/navigation.js"></script>
+
+</body>
+</html>

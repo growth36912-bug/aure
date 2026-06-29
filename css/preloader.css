@@ -1,0 +1,60 @@
+#preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--c-preloader);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Marco de bordes que se expanden */
+.preloader__border {
+  position: absolute;
+  background: rgba(242, 234, 224, 0.25);
+}
+.preloader__border--top    { top: 0; left: 50%; height: 1px; width: 0; transform: translateX(-50%); }
+.preloader__border--bottom { bottom: 0; left: 50%; height: 1px; width: 0; transform: translateX(-50%); }
+.preloader__border--left   { left: 0; top: 50%; width: 1px; height: 0; transform: translateY(-50%); }
+.preloader__border--right  { right: 0; top: 50%; width: 1px; height: 0; transform: translateY(-50%); }
+
+.preloader__logo {
+  width: clamp(120px, 16vw, 200px);
+  opacity: 0;
+  filter: blur(20px);
+  /* Logo SVG/IMG centrado — se reemplaza con el logo real de Auré */
+}
+
+/* Texto placeholder para cuando no hay logo PNG aún */
+.preloader__wordmark {
+  font-family: var(--f-display);
+  font-weight: 300;
+  font-size: clamp(40px, 8vw, 80px);
+  color: var(--c-bg);
+  letter-spacing: 0.3em;
+  opacity: 0;
+  filter: blur(20px);
+}
+
+.preloader__counter {
+  position: absolute;
+  bottom: clamp(24px, 4vw, 48px);
+  left: clamp(24px, 4vw, 48px);
+  font-family: var(--f-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: rgba(242, 234, 224, 0.6);
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__tagline {
+  position: absolute;
+  bottom: clamp(24px, 4vw, 48px);
+  right: clamp(24px, 4vw, 48px);
+  font-family: var(--f-ui);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: rgba(242, 234, 224, 0.3);
+  text-transform: uppercase;
+}

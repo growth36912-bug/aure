@@ -1,0 +1,61 @@
+/* DISPLAY — Bigilla: serif con ligaduras para luxury/branding-premium */
+@font-face {
+  font-display: swap;
+  font-family: 'AureDisplay';
+  font-weight: 400;
+  src: url('../fonts/Bigilla-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'AureDisplay';
+  font-weight: 700;
+  src: url('../fonts/Bigilla-Bold.otf') format('opentype');
+}
+
+/* UI — SubjectivitySerif Light: serif elegante para nav y labels */
+@font-face {
+  font-display: swap;
+  font-family: 'AureUI';
+  font-weight: 300;
+  src: url('../fonts/SubjectivitySerif-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'AureUI';
+  font-weight: 400;
+  src: url('../fonts/SubjectivitySerif-Regular.otf') format('opentype');
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --c-bg:         #F2EAE0;
+  --c-ink:        #1A1A1A;
+  --c-ink-muted:  #6B6560;
+  --c-gold:       #C4A86B;
+  --c-preloader:  #3A4632;
+  --c-white:      #FFFFFF;
+
+  --f-display: 'AureDisplay', 'Georgia', serif;
+  --f-ui:      'AureUI', 'Helvetica Neue', sans-serif;
+
+  --ease-brand:  cubic-bezier(0.86, 0, 0.07, 1);
+  --ease-soft:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html {
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar { display: none; }
+
+body {
+  background: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--f-ui);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}

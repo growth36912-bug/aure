@@ -1,0 +1,190 @@
+/* =============================================
+   COLLECTION VIEW — grid editorial Auré
+   ============================================= */
+
+#collection-view {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--c-bg);
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+#collection-view.is-open { display: flex; }
+
+/* ── HEADER ─────────────────────────────────── */
+.collection-view__header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--c-bg);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(32px, 5vw, 72px);
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.07);
+}
+
+.collection-view__back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--f-ui);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  transition: color 0.25s ease;
+}
+
+.collection-view__back::before { content: '←'; }
+.collection-view__back:hover { color: var(--c-ink); }
+
+.collection-view__count {
+  font-family: var(--f-ui);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.3);
+}
+
+/* ── HERO EDITORIAL — título enorme de sección ── */
+.collection-view__hero {
+  position: relative;
+  padding: 32px clamp(32px, 5vw, 72px) 24px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.07);
+  flex-shrink: 0;
+}
+
+/* Ghost watermark — nombre corto en display serif */
+.collection-view__display-title {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(80px, 14vw, 180px);
+  letter-spacing: 0.03em;
+  line-height: 0.82;
+  color: var(--c-ink);
+  opacity: 0.055;
+  user-select: none;
+  pointer-events: none;
+  display: block;
+}
+
+/* Nombre completo encima del watermark */
+.collection-view__subtitle {
+  position: absolute;
+  bottom: 26px;
+  left: clamp(32px, 5vw, 72px);
+  font-family: var(--f-ui);
+  font-size: 9px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+
+/* ── GRID SIN BORDES ─────────────────────────── */
+.collection-view__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0 clamp(32px, 5vw, 72px) 80px;
+}
+
+/* ── TARJETA DE PRODUCTO ─────────────────────── */
+.product-card {
+  background: transparent;
+  padding: 40px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  cursor: pointer;
+  position: relative;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.07);
+  transition: background 0.3s ease;
+}
+
+/* Separador vertical entre columnas */
+.product-card:not(:nth-child(3n)) {
+  border-right: 1px solid rgba(26, 26, 26, 0.07);
+}
+
+/* Número editorial — esquina superior derecha */
+.product-card__num {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-family: var(--f-ui);
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  color: rgba(26, 26, 26, 0.18);
+  user-select: none;
+}
+
+/* Imagen: portrait, sin fondo */
+.product-card__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  object-position: center bottom;
+  margin-bottom: 20px;
+  transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-card:hover .product-card__img {
+  transform: translateY(-10px) scale(1.03);
+}
+
+/* Nombre en display serif */
+.product-card__name {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(17px, 1.6vw, 24px);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--c-ink);
+  margin-bottom: 8px;
+  transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-card__name { opacity: 0.5; }
+
+/* Precio — pequeño y muted */
+.product-card__price {
+  font-family: var(--f-ui);
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-ink-muted);
+}
+
+/* ── MOBILE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .collection-view__display-title {
+    font-size: clamp(56px, 18vw, 100px);
+  }
+
+  .collection-view__grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 16px 64px;
+  }
+
+  .product-card:not(:nth-child(3n)) {
+    border-right: none;
+  }
+
+  .product-card:not(:nth-child(2n)) {
+    border-right: 1px solid rgba(26, 26, 26, 0.07);
+  }
+
+  .product-card__img { aspect-ratio: 1 / 1; }
+}
