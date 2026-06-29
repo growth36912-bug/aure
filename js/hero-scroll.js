@@ -1,9 +1,9 @@
 /* ============================================================
    HERO SCROLL — PAAM
-   Strip horizontal: hero + collection-menu en fila.
-   El strip completo se traduce -200vw al hacer scroll.
-   El título se mueve 1.5× más rápido (dual velocity).
-   Referencia: melem.tokyo teardown [C]
+   Mientras scrolleas:
+     - El strip completo se mueve -200vw (héroe sale / colección entra)
+     - El título se mueve -55vw EXTRA = dual velocity
+   Tres capas: hero-bg → hero__title → hero__fg (efecto de profundidad)
    ============================================================ */
 
 document.addEventListener('preloader:done', initHeroScroll);
@@ -11,55 +11,50 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!document.getElementById('preloader')) initHeroScroll();
 });
 
-var _heroST        = null;
+var _heroST         = null;
 var _strip, _title, _pinEl;
 var _resizeTimer;
-var _initialized   = false;
+var _initialized    = false;
 var _listenersAdded = false;
 
 function buildHeroAnimation() {
-  /* Destruir instancia anterior completa (elimina pin spacer) */
+  /* 1. Matar instancia anterior — elimina el pin spacer del DOM */
   if (_heroST) {
     _heroST.kill();
     _heroST = null;
   }
 
-  /* Devolver control al CSS antes de reconstruir */
-  gsap.set(_strip,               { clearProps: 'transform' });
-  gsap.set(_title,               { clearProps: 'transform' });
-  gsap.set('.hero__overlay',     { clearProps: 'opacity' });
-  gsap.set('.hero__scroll-hint', { clearProps: 'opacity' });
+  /* 2. Reset explícito: GSAP toma control del centrado del título
+        (evita conflicto entre CSS transform y GSAP transform) */
+  gsap.set(_strip, { x: 0 });
+  gsap.set(_title, { clearProps: 'transform' });
+  gsap.set(_title, { xPercent: -50, yPercent: -50, x: 0 });
+  gsap.set('.hero__overlay', { opacity: 0 });
 
-  /* Diferir un frame para que el DOM procese el clearProps y el
-     navegador termine de calcular el nuevo viewport (crítico en F11) */
-  gsap.delayedCall(0.05, function () {
-    var tl = gsap.timeline({
-      scrollTrigger: {
-        trigger:            _pinEl,
-        start:              'top top',
-        end:                '+=1400',
-        scrub:              1,
-        pin:                true,
-        anticipatePin:      1,
-        invalidateOnRefresh: true,
-        onRefresh: function (self) {
-          self.animation && self.animation.progress(self.progress);
-        },
-      },
-    });
-
-    /* Strip recorre 200vw total */
-    tl.to(_strip, { x: '-200vw', ease: 'none', duration: 2 }, 0);
-
-    /* Título sale en la primera mitad — dual velocity */
-    tl.to(_title, { x: '-55vw',  ease: 'none', duration: 1 }, 0);
-
-    /* Overlay oscurece en la primera mitad */
-    tl.to('.hero__overlay',     { opacity: 1, ease: 'none', duration: 1  }, 0);
-    tl.to('.hero__scroll-hint', { opacity: 0, ease: 'none', duration: 0.15 }, 0);
-
-    _heroST = tl.scrollTrigger;
+  /* 3. Construir animación con las dimensiones actuales del viewport */
+  var tl = gsap.timeline({
+    scrollTrigger: {
+      trigger:             _pinEl,
+      start:               'top top',
+      end:                 '+=1400',
+      scrub:               1.5,
+      pin:                 true,
+      anticipatePin:       1,
+      invalidateOnRefresh: true,
+    },
   });
+
+  /* Strip recorre 200vw — el héroe sale, la colección entra */
+  tl.to(_strip, { x: '-200vw', ease: 'none', duration: 2 }, 0);
+
+  /* Título recorre 55vw EXTRA encima del strip = va más rápido
+     Resultado visual: las letras "pasan" detrás de hero__fg */
+  tl.to(_title, { x: '-55vw', ease: 'none', duration: 1 }, 0);
+
+  /* Overlay oscurece mientras el héroe sale */
+  tl.to('.hero__overlay', { opacity: 1, ease: 'none', duration: 1 }, 0);
+
+  _heroST = tl.scrollTrigger;
 }
 
 function initHeroScroll() {
@@ -76,21 +71,13 @@ function initHeroScroll() {
 
   buildHeroAnimation();
 
-  /* Un solo listener de resize — fullscreenchange NO dispara en F11 del browser,
-     solo dispara la Fullscreen API. Resize cubre F11, DevTools, zoom de OS. */
+  /* Un solo listener — resize cubre F11, zoom de OS y DevTools
+     700ms: tiempo suficiente para que el browser termine la transición de F11 */
   if (!_listenersAdded) {
     _listenersAdded = true;
     window.addEventListener('resize', function () {
       clearTimeout(_resizeTimer);
-      /* 700ms: tiempo suficiente para que Chrome termine la animación de F11
-         (barra de dirección + transición de tabs) antes de reconstruir */
-      _resizeTimer = setTimeout(function () {
-        buildHeroAnimation();
-        /* Segunda pasada 400ms después — captura ajustes tardíos del viewport */
-        setTimeout(function () {
-          if (_heroST) ScrollTrigger.refresh();
-        }, 400);
-      }, 700);
+      _resizeTimer = setTimeout(buildHeroAnimation, 700);
     });
   }
 }
